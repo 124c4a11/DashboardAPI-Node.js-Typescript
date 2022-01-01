@@ -22,7 +22,7 @@
 .project
 .settings
 .tmproj
-.vscode
+# .vscode
 Thumbs.db
 
 # Folders to ignore
@@ -32,7 +32,7 @@ Thumbs.db
 .idea
 .svn
 .sass-cache
-.vscode
+# .vscode
 bower_components
 dist
 build
