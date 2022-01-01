@@ -1,5 +1,3 @@
-
-
 export class HTTPError extends Error {
   statusCode: number;
   context?: string;
