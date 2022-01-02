@@ -45,3 +45,4 @@ npm-debug.log
 
 # Project files
 /dist
+/.clinic
