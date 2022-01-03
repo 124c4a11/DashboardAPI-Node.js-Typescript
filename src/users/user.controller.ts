@@ -9,6 +9,7 @@ import { LoggerService } from '../logger/logger.service';
 import { IUserController } from './users.controller.interface';
 import { UserLoginDto } from './dto/user-login.dto';
 import { UserRegisterDto } from './dto/user-register.dto';
+import { User } from './user.entity';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -21,9 +22,16 @@ export class UserController extends BaseController implements IUserController {
     ]);
   }
 
-  register(req: Request<{}, {}, UserRegisterDto>, res: Response, next: NextFunction): void {
-    console.log(req.body);
-    this.ok(res, 'register');
+  async register(
+    { body: { name, email, password } }: Request<{}, {}, UserRegisterDto>,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    const newUser = new User(name, email);
+
+    await newUser.setPassword(password);
+
+    this.ok(res, newUser);
   }
 
   login(req: Request<{}, {}, UserLoginDto>, res: Response, next: NextFunction): void {
