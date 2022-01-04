@@ -46,3 +46,5 @@ npm-debug.log
 # Project files
 /dist
 /.clinic
+/prisma/dev.db
+/prisma/dev.db-journal
