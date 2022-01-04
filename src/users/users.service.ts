@@ -6,18 +6,26 @@ import { UserLoginDto } from './dto/user-login.dto';
 import { UserRegisterDto } from './dto/user-register.dto';
 import { User } from './user.entity';
 import { IUserService } from './users.service.interface';
+import { IUsersRepository } from './respository/users.repository.interface';
+import { UserModel } from '@prisma/client';
 
 @injectable()
 export class UserService implements IUserService {
-  constructor(@inject(TYPES.ConfigService) private configService: IConfigService) {}
+  constructor(
+    @inject(TYPES.ConfigService) private configService: IConfigService,
+    @inject(TYPES.UsersRepository) private userRepository: IUsersRepository,
+  ) {}
 
-  async createUser({ name, email, password }: UserRegisterDto): Promise<User | null> {
+  async createUser({ name, email, password }: UserRegisterDto): Promise<UserModel | null> {
     const newUser = new User(name, email);
     const salt = this.configService.get('SALT');
+    const existedUser = await this.userRepository.find(email);
+
+    if (existedUser) return null;
 
     await newUser.setPassword(password, Number(salt));
 
-    return null;
+    return this.userRepository.create(newUser);
   }
 
   async validateUser(dto: UserLoginDto): Promise<boolean> {
