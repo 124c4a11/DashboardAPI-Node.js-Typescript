@@ -11,10 +11,10 @@ import { ILogger } from './logger/logger.service.interface';
 import { TYPES } from './types';
 import { UsersRepository } from './users/respository/users.repository';
 import { IUsersRepository } from './users/respository/users.repository.interface';
-import { UserController } from './users/user.controller';
-import { IUserController } from './users/users.controller.interface';
-import { UserService } from './users/users.service';
-import { IUserService } from './users/users.service.interface';
+import { UserController } from './users/controller/user.controller';
+import { UserService } from './users/service/users.service';
+import { IUserService } from './users/service/users.service.interface';
+import { IUserController } from './users/controller/users.controller.interface';
 
 export interface IBootstrap {
   appContainer: Container;
